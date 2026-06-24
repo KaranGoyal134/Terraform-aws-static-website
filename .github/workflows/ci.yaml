@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  plan:
     runs-on: ubuntu-latest
       
     steps:
@@ -44,6 +44,31 @@ jobs:
         with:
           name: terraform-plan
           path: tfplan
-      
+
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume:  ${{ vars.ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: terraform init
+        run: terraform init -backend-config="bucket=${{ vars.TF_REMOTE_STATE_BUCKET }}"
+
+      - name: Download plan
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-plan
+
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan  
