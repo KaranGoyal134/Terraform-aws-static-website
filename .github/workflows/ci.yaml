@@ -45,7 +45,6 @@ jobs:
           name: terraform-plan
           path: tfplan
 
-
   apply:
     needs: plan
     runs-on: ubuntu-latest
