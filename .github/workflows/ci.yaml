@@ -45,8 +45,6 @@ jobs:
           name: terraform-plan
           path: tfplan
 
-      - name: terrform destroy
-        run: terraform destroy -auto-approve
 
   apply:
     needs: plan
