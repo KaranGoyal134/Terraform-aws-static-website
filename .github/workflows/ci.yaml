@@ -38,7 +38,7 @@ jobs:
 
       - name: Terraform plan
         run: terraform plan -out=tfplan \
-               -var="bucket_name=${{ var.TF_VAR_BUCKET_NAME }}"
+               -var="bucket_name=${{ vars.TF_VAR_BUCKET_NAME }}"
 
       - name: Plan Artifact
         uses: actions/upload-artifact@v4
@@ -48,4 +48,4 @@ jobs:
       
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan  \
-               -var="bucket_name=${{ var.TF_VAR_BUCKET_NAME }}"
+               -var="bucket_name=${{ vars.TF_VAR_BUCKET_NAME }}"
