@@ -1,4 +1,4 @@
-name: running terraform configuration
+name: Terraform CI
 
 on:
   push:
@@ -29,8 +29,9 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
-        run: terraform init \
-      - backend-config="bucket=${{ vars.TF_REMOTE_STATE_BUCKET }}
+        run: | 
+          terraform init \
+            -backend-config="bucket=${{ vars.TF_REMOTE_STATE_BUCKET }}"
       
       - name: terraform validate
         run: terraform validate
@@ -45,4 +46,4 @@ jobs:
           path: tfplan
       
       - name: Terraform Apply
-        run: terraform apply        
+        run: terraform apply -auto-approve tfplan     
