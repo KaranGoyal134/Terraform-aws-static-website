@@ -117,9 +117,6 @@ output "cloudfront_url" {
 }
 ```
 
-**Live URL:** `https://<your-cloudfront-domain>.cloudfront.net`
-> *Replace this with the actual `cloudfront_url` output value from your `terraform apply` / pipeline run.*
-
 ### Website Preview
 
 ![Website Screenshot](images/website-preview.png)
