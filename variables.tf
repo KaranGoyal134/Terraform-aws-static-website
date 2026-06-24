@@ -1,3 +1,3 @@
 variable "bucket_name" {
-  default = "static_website_host_bucket"
+  default = "static-website-host-bucket"
 }
